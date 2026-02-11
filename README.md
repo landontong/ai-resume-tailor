@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI Resume Tailor
 
-## Getting Started
+This is a web app I built to automatically tailor a LaTeX resume to a specific job description.
 
-First, run the development server:
+Instead of manually rewriting bullets for every application, you can paste your full LaTeX resume, paste the job description, choose the role type, and generate a revised version that stays ATS-friendly and keeps your formatting intact.
 
-```bash
+It also compiles the generated LaTeX into a downloadable PDF directly in the app (no Overleaf needed).
+
+What it does
+
+Takes a full LaTeX resume as input
+
+Takes a job description
+
+Rewrites bullets to better match the role
+
+Extracts relevant keywords
+
+Keeps everything formatted as a one-page resume
+
+Lets you download the updated .tex file
+
+Compiles and downloads a PDF using Tectonic
+
+No resume data is stored.
+
+Tech Stack
+
+Frontend:
+
+Next.js (App Router)
+
+React
+
+TypeScript
+
+TailwindCSS
+
+Backend:
+
+Next.js API routes (Node runtime)
+
+AI:
+
+OpenAI Responses API with structured outputs
+
+PDF compilation:
+
+Tectonic (XeTeX-based LaTeX compiler)
+
+Validation:
+
+Zod
+
+Setup Instructions
+1. Clone the repo
+
+git clone https://github.com/YOUR_USERNAME/ai-resume-tailor.git
+
+cd ai-resume-tailor
+
+2. Install dependencies
+
+npm install
+
+3. Install Tectonic (for PDF generation)
+
+On Windows PowerShell:
+
+iex ((New-Object System.Net.WebClient).DownloadString('https://drop-ps1.fullyjustified.net
+'))
+
+Make sure tectonic.exe is added to your system PATH.
+
+Verify it works:
+
+tectonic --version
+
+4. Add your OpenAI API key
+
+Create a file called:
+
+.env.local
+
+Add:
+
+OPENAI_API_KEY=your_api_key_here
+
+You can generate an API key at:
+https://platform.openai.com/api-keys
+
+Make sure billing is enabled on your OpenAI account.
+
+5. Run the app
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+How to use
 
-## Learn More
+Paste your full LaTeX resume
 
-To learn more about Next.js, take a look at the following resources:
+Paste the job description
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Select the optimization track (Embedded, Hardware/Power, Software)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Click Generate
 
-## Deploy on Vercel
+Download the tailored .tex or compiled PDF
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The resume must already be valid LaTeX
+
+Designed for single-page resumes
+
+pdfTeX-specific commands are sanitized automatically for compatibility with Tectonic
+
+API usage costs depend on OpenAI token usage (usually a few cents per generation)
+
+Why I built this
+
+Tailoring resumes for every job takes a lot of time. I wanted something that:
+
+Keeps formatting consistent
+
+Doesn’t break LaTeX
+
+Stays ATS-friendly
+
+Saves time during application season
