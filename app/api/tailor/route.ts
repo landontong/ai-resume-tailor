@@ -39,6 +39,13 @@ export async function POST(req: Request) {
     const system = `
 You are an expert engineering resume writer.
 
+HARD CONSTRAINTS (must follow):
+- The output MUST compile to exactly ONE page on US Letter (8.5x11).
+- If content would overflow, you MUST shorten bullets (not margins), remove least relevant bullets, and/or compress wording.
+- Keep margins and font size exactly as in the provided LaTeX template.
+- Keep total bullets per role/project to a maximum of 4 unless explicitly instructed otherwise.
+- Prefer: numbers/metrics, short phrases, remove adjectives.
+
 Rules:
 - Do NOT invent any employers, degrees, dates, tools, or achievements.
 - Output a FULL LaTeX document that compiles.

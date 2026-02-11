@@ -54,6 +54,32 @@ export default function Home() {
     URL.revokeObjectURL(url);
   }
 
+  async function downloadPdf() {
+    try {
+      const res = await fetch("/api/compile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ latex }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "PDF compile failed");
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "resume.pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e: any) {
+      alert(e.message ?? "Error");
+    }
+  }
+
+
   return (
     <main className="mx-auto max-w-6xl p-6">
       <h1 className="text-3xl font-semibold">AI Resume Tailoring App</h1>
@@ -90,6 +116,14 @@ export default function Home() {
         >
           Download .tex
         </button>
+        <button
+          className="rounded border px-4 py-2 text-sm disabled:opacity-50"
+          onClick={downloadPdf}
+          disabled={!latex}
+        >
+          Download PDF
+        </button>
+
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2">
